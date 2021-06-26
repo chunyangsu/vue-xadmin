@@ -1,4 +1,5 @@
 import layoutHeaderAside from '@/layout/header-aside'
+import user from './modules/user'
 
 // 由于懒加载页面太多的话会造成webpack热更新太慢，所以开发环境不使用懒加载，只有生产环境使用懒加载
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
@@ -6,12 +7,13 @@ const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
 /**
  * 在主框架内显示
  */
-const frameIn = [
-  {
-    path: '/',
-    redirect: { name: 'index' },
-    component: layoutHeaderAside,
-    children: [
+const frameIn = [{
+  path: '/',
+  redirect: {
+    name: 'index'
+  },
+  component: layoutHeaderAside,
+  children: [
       // 首页
       {
         path: 'index',
@@ -55,8 +57,9 @@ const frameIn = [
         hidden: true,
         component: _import('system/function/redirect')
       }
-    ]
-  }
+  ]
+},
+user // 用户中心
 ]
 
 /**
@@ -74,13 +77,11 @@ const frameOut = [
 /**
  * 错误页面
  */
-const errorPage = [
-  {
-    path: '*',
-    name: '404',
-    component: _import('system/error/404')
-  }
-]
+const errorPage = [{
+  path: '*',
+  name: '404',
+  component: _import('system/error/404')
+}]
 
 // 导出需要显示菜单的
 export const frameInRoutes = frameIn

@@ -1,5 +1,8 @@
 import { uniqueId } from 'lodash'
 
+// 组件
+import user from './modules/user'
+
 /**
  * @description 给菜单数据补充上 path 字段
  * @description https://github.com/d2-projects/d2-admin/issues/209
@@ -14,7 +17,7 @@ function supplementPath (menu) {
     } : {}
   }))
 }
-
+// 顶部菜单
 export const menuHeader = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
   {
@@ -23,9 +26,10 @@ export const menuHeader = supplementPath([
     children: [
       { path: '/page1', title: '页面 1' }
     ]
-  }
+  },
+  user
 ])
-
+// 左侧菜单
 export const menuAside = supplementPath([
   { path: '/index', title: '首页', icon: 'home' },
   {
