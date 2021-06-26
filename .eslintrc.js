@@ -10,20 +10,21 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    "space-before-function-paren": 0
+    // 方法后面的()前不加空格
+    "space-before-function-paren": 0,
+    //引号类型 `` "" ''
+    "quotes": [1, "single"]
   },
   parserOptions: {
     parser: 'babel-eslint'
   },
-  overrides: [
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
-      env: {
-        jest: true
-      }
+  overrides: [{
+    files: [
+      '**/__tests__/*.{j,t}s?(x)',
+      '**/tests/unit/**/*.spec.{j,t}s?(x)'
+    ],
+    env: {
+      jest: true
     }
-  ]
+  }]
 }
