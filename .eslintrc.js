@@ -13,7 +13,9 @@ module.exports = {
     // 方法后面的()前不加空格
     "space-before-function-paren": 0,
     //引号类型 `` "" ''
-    "quotes": [1, "single"]
+    "quotes": [1, "single"],
+    // 缩进配置
+    "indent": ["off", 2]
   },
   parserOptions: {
     parser: 'babel-eslint'
