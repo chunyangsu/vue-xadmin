@@ -9,21 +9,29 @@ import store from '@/store/index'
 
 // 菜单和路由设置
 import router from './router'
-import { menuHeader, menuAside } from '@/menu'
-import { frameInRoutes } from '@/router/routes'
+import {
+  menuHeader,
+  menuAside
+} from '@/menu'
+import {
+  frameInRoutes
+} from '@/router/routes'
 // 滚动加载插件
 import infiniteScroll from 'vue-infinite-scroll'
-
+// 全局组件库
+import ComponentLibrary from './global/componentLibrary'
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(infiniteScroll)
+// 全局组件库
+Vue.use(ComponentLibrary)
 
 new Vue({
   router,
   store,
   i18n,
   render: h => h(App),
-  created () {
+  created() {
     // 处理路由 得到每一级的路由设置
     this.$store.commit('d2admin/page/init', frameInRoutes)
     // 设置顶栏菜单
@@ -33,7 +41,7 @@ new Vue({
     // 初始化菜单搜索功能
     this.$store.commit('d2admin/search/init', menuHeader)
   },
-  mounted () {
+  mounted() {
     // 展示系统信息
     this.$store.commit('d2admin/releases/versionShow')
     // 用户登录后从数据库加载一系列的设置
