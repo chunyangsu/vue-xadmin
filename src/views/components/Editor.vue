@@ -1,12 +1,12 @@
 <template>
   <d2-container>
-    <div>产品管理</div>
+    <div>编辑器组件</div>
   </d2-container>
 </template>
 
 <script>
 export default {
-  name: 'ProductManage', // 产品管理
+  name: 'Editor', // 编辑器组件
   data() {
     return {
 

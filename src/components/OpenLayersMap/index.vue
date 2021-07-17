@@ -53,7 +53,8 @@ export default {
       this.map = new Map({
         layers: [tileLayer],
         view: new View({
-          center: fromLonLat([120.771441, 30.756433]), // 地图中心点
+          // center: fromLonLat([120.771441, 30.756433]), // 地图中心点
+          center: fromLonLat([121.363744, 31.351326]), // 地图中心点
           zoom: 15, // 缩放级别
           minZoom: 0, // 最小缩放级别
           maxZoom: 18, // 最大缩放级别
@@ -69,5 +70,6 @@ export default {
 .map {
   width: 100%;
   height: 90%;
+  border: 1px solid #ccc;
 }
 </style>

@@ -5,6 +5,7 @@ import {
 // 组件
 import user from './modules/user'
 import product from './modules/product'
+import components from './modules/components'
 
 /**
  * @description 给菜单数据补充上 path 字段
@@ -29,7 +30,9 @@ export const menuHeader = supplementPath([{
   // 产品中心
   product,
   // 用户中心
-  user
+  user,
+  // 组件库
+  components
 ])
 // 左侧菜单
 export const menuAside = supplementPath([{
@@ -40,5 +43,7 @@ export const menuAside = supplementPath([{
   // 产品中心
   product,
   // 用户中心
-  user
+  user,
+  // 组件库
+  components
 ])
