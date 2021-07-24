@@ -15,7 +15,13 @@ module.exports = {
     //引号类型 `` "" ''
     "quotes": [1, "single"],
     // 缩进配置
-    "indent": ["off", 2]
+    "indent": ["off", 2],
+    // 允许 == 或 !=
+    "eqeqeq": ["off"],
+    //配置camelcase选项
+    "camelcase": [0, {
+      properties: 'always'
+    }]
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -20,11 +20,14 @@ import {
 import infiniteScroll from 'vue-infinite-scroll'
 // 全局组件库
 import ComponentLibrary from './global/componentLibrary'
+// 计时器
+import SgoTimer from './components/Sgo/SgoTimer'
 // 核心插件
 Vue.use(d2Admin)
 Vue.use(infiniteScroll)
 // 全局组件库
 Vue.use(ComponentLibrary)
+Vue.use(SgoTimer)
 
 new Vue({
   router,

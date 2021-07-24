@@ -26,6 +26,7 @@ $prefix: d2;
   align-items: center;
   flex-direction: row;
 }
+
 %flex-center-col {
   display: flex;
   justify-content: center;
@@ -41,4 +42,215 @@ $prefix: d2;
   border-radius: 4px;
   font-size: 14px;
   position: relative;
+}
+
+// 添加自己编写的css样式
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ' ';
+    clear: both;
+    height: 0;
+  }
+}
+
+.dialog-footer {
+  // width: 100%;
+  padding: 6px 20px;
+  // margin-right: 20px;
+  // margin-bottom: 20px;
+  background-color: rgba(226, 228, 231, 0.8);
+}
+
+// 列表页搜索栏
+.filter-container {
+  margin: 10px 0;
+}
+
+// 分页器样式
+.pagination-container {
+  margin-top: 5px;
+  text-align: right;
+}
+
+// 表格单元格可点击的颜色
+.link-type,
+.link-type:focus {
+  color: #337ab7;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(32, 160, 255);
+  }
+}
+
+// 自定义文本框
+.mineInput {
+  width: 100%;
+  display: block;
+  resize: vertical;
+  padding: 10px;
+  line-height: 1.5;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: inherit;
+  color: #606266;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #DCDFE6;
+  border-radius: 4px;
+
+  p {
+    margin: 0px;
+  }
+}
+
+.mineInput img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+label {
+  font-weight: 700;
+}
+
+// 首页分类-子分类树
+.add-cate .el-tree-node__content {
+  height: 45px;
+}
+
+// 页面左上角切换栏
+.store-manage .el-link--inner,
+.enterprise-manage .el-link--inner {
+  font-size: 18px;
+}
+
+// 图片宽高自适应
+.pic-auto {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+// 被产品产品的图片logo
+.merge-img {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  left: 95px;
+  top: 8px;
+  opacity: 0.3;
+  transform: rotate(-16deg);
+  -ms-transform: rotate(-16deg);
+  /* IE 9 */
+  -moz-transform: rotate(-16deg);
+  /* Firefox */
+  -webkit-transform: rotate(-16deg);
+  /* Safari 和 Chrome */
+  -o-transform: rotate(-16deg);
+}
+
+.so-icon {
+  color: #e6a23c;
+  font-size: 14px;
+  margin-right: 10px;
+  width: 14px;
+}
+
+.tips {
+  color: orange;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+/* 文字溢出隐藏 */
+.text-hidden {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 树-内容过长 隐藏展示... */
+.show-allcontent {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+//
+.show-file .el-badge__content.is-fixed {
+  top: 8px;
+}
+
+// 输入框间距
+.input-margin {
+  margin-right: 10px;
+}
+
+// 数字输入框
+.el-input-number {
+  line-height: 34px;
+}
+
+// 数字输入框的左右两个加减符合
+.el-input-number__decrease,
+.el-input-number__increase {
+  width: 36px;
+}
+
+// 参数单位的穿梭框样式
+.paramUnit .el-transfer-panel {
+  width: 250px;
+}
+
+// 产品描述的图片自适应
+.proModule img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+// 图片的悬浮罩层，包裹该罩层的dom必须position:relative
+.com-avatar-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  opacity: 0;
+  color: #fff;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+
+.com-avatar-mask:hover {
+  opacity: 1;
+}
+
+// 表单自定义盒子
+.form-item-box {
+  // margin-bottom: 20px;
+}
+
+.form-item-box .form-item-left {
+  float: left;
+}
+
+.form-item-box .form-item-right {
+  float: left;
 }
