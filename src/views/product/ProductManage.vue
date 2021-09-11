@@ -1,11 +1,3 @@
-<!--
- * @Descripttion:
- * @version:
- * @Author: sueRimn
- * @Date: 2021-06-27 18:34:56
- * @LastEditors: sueRimn
- * @LastEditTime: 2021-08-21 23:10:24
--->
 <template>
   <d2-container>
     <div>产品管理</div>

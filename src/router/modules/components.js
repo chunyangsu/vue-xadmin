@@ -33,6 +33,15 @@ export default {
         ...meta,
         title: '编辑器'
       }
+    },
+    {
+      path: 'ScrollLoad',
+      name: `${pre}ScrollLoad`,
+      component: _import('components/ScrollLoad'),
+      meta: {
+        ...meta,
+        title: '滚动加载'
+      }
     }
   ])('components-')
 }

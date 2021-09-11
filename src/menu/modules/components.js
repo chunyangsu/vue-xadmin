@@ -11,6 +11,11 @@ export default {
       path: `${pre}Editor`,
       title: '编辑器',
       icon: 'cubes'
+    },
+    {
+      path: `${pre}ScrollLoad`,
+      title: '滚动加载',
+      icon: 'cubes'
     }
   ])('/components/')
 }
