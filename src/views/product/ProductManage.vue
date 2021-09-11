@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion:
+ * @version:
+ * @Author: sueRimn
+ * @Date: 2021-06-27 18:34:56
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2021-08-21 23:10:24
+-->
 <template>
   <d2-container>
     <div>产品管理</div>
@@ -5,6 +13,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   name: 'ProductManage', // 产品管理
   data() {
@@ -12,8 +21,18 @@ export default {
 
     }
   },
+  created() {
+    this.getList()
+  },
   methods: {
-
+    getList() {
+      Axios({
+        method: 'get',
+        url: 'http://localhost:3000/user'
+      }).then(response => {
+        console.log(response)
+      })
+    }
   }
 }
 </script>
