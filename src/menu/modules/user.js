@@ -3,8 +3,8 @@ export default {
   title: '用户中心',
   icon: 'user-circle-o',
   children: (pre => [{
-    path: `${pre}UserCenter`,
-    title: '用户中心',
+    path: `${pre}UserManage`,
+    title: '用户管理',
     icon: 'user-circle-o'
   }])('/user/')
 }

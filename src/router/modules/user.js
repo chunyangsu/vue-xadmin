@@ -13,16 +13,16 @@ export default {
   name: 'user',
   meta,
   redirect: {
-    name: 'user-UserCenter'
+    name: 'user-UserManage'
   },
   component: layoutHeaderAside,
   children: (pre => [{
-    path: 'UserCenter',
-    name: `${pre}UserCenter`,
-    component: _import('user/UserCenter'),
+    path: 'UserManage',
+    name: `${pre}UserManage`,
+    component: _import('user/UserManage'),
     meta: {
       ...meta,
-      title: '用户中心'
+      title: '用户管理'
     }
   }])('user-')
 }
