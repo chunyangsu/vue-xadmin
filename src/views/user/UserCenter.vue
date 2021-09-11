@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+// import Axios from 'axios'
 
 export default {
   name: 'UserCenter', // 用户中心
@@ -32,18 +32,24 @@ export default {
   methods: {
     // 获取列表
     getList() {
-      Axios({
-        method: 'get',
-        url: 'http://localhost:3000/user/getList'
-      }).then(response => {
-        console.log(response)
-        if (response.status === 200) {
-          this.list = response.data.data
-        }
+      this.$api.fetchUserList().then(response => {
+        this.list = response.data
         setTimeout(() => {
           this.listLoading = false
         }, 150)
       })
+      // Axios({
+      //   method: 'get',
+      //   url: 'http://localhost:3000/user/getList'
+      // }).then(response => {
+      //   console.log(response)
+      //   if (response.status === 200) {
+      //     this.list = response.data.data
+      //   }
+      //   setTimeout(() => {
+      //     this.listLoading = false
+      //   }, 150)
+      // })
     }
   }
 }

@@ -3,7 +3,9 @@ import faker from 'faker/locale/zh_CN'
 import { service, request, serviceForMock, requestForMock, mock } from './service'
 import * as tools from './tools'
 
-const files = require.context('./modules', true, /\.api\.js$/)
+// const files = require.context('./modules', true, /\.api\.js$/)
+// 目的是让接口不受文件夹路径影响
+const files = require.context('./modules', true, /\.js$/)
 const generators = files.keys().map(key => files(key).default)
 
 export default assign({}, ...map(generators, generator => generator({
