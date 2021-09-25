@@ -3,8 +3,21 @@
     <!-- 新增/编辑 弹窗 -->
     <el-dialog :title="textMap[dialogStatus]" :close-on-click-modal="false" :visible.sync="dialogVisible" show-close width="70%">
       <el-form ref="dataForm" :rules="rules" :model="formData" label-position="right" label-width="110px">
+        <!-- 姓名 -->
         <el-form-item :label="$t('姓名')" prop="name">
-          <el-input v-model="formData.name" style="width: 290px;" />
+          <el-input v-model.trim="formData.name" style="width: 290px;" />
+        </el-form-item>
+        <!-- 手机号 -->
+        <el-form-item :label="$t('手机号')" prop="mobile">
+          <el-input v-model.trim="formData.mobile" style="width: 290px;" />
+        </el-form-item>
+        <!-- 密码 -->
+        <el-form-item :label="$t('密码')" prop="password">
+          <el-input v-model.trim="formData.password" style="width: 290px;" />
+        </el-form-item>
+        <!-- 邮箱 -->
+        <el-form-item :label="$t('邮箱')" prop="email">
+          <el-input v-model.trim="formData.email" style="width: 290px;" />
         </el-form-item>
       </el-form>
       <!-- 底部按钮 -->
@@ -12,9 +25,9 @@
         <!-- <sgo-fixed :key="new Date().getTime() || 0" placement="bottom" :height="80"> -->
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">{{ $t('取消') }}</el-button>
-          <el-button type="primary" @click="createData">{{ $t('确定') }}</el-button>
-          <!-- <NewButton v-if="dialogStatus === 'create'" :functions="createData" type="primary">{{ $t('button.confirm') }}</NewButton> -->
-          <!-- <NewButton v-else :functions="updateData" type="primary">{{ $t('button.confirm') }}</NewButton> -->
+          <el-button :disabled="disabled_saveBtn" type="primary" @click="createData">{{ $t('确定') }}</el-button>
+          <!-- <NewButton v-if="dialogStatus === 'create'" :functions="createData" type="primary">确定</NewButton> -->
+          <!-- <NewButton v-else :functions="updateData" type="primary">确定</NewButton> -->
         </div>
         <!-- </sgo-fixed> -->
       </div>
@@ -23,18 +36,20 @@
 </template>
 
 <script>
-// import NewButton from '@/components/button'
 
 export default {
   name: 'StaffManageDialog', // 员工管理弹窗
   components: {
-    // NewButton
+    // NewButton: () => import('@/components/NewButton')
   },
   data() {
     return {
       formData: {
         id: undefined,
-        name: undefined
+        name: undefined,
+        mobile: undefined,
+        password: undefined,
+        email: undefined
       },
       dialogVisible: false,
       dialogStatus: '',
@@ -42,10 +57,13 @@ export default {
         create: this.$t('新建'),
         update: this.$t('编辑')
       },
-      dialogPvVisible: false,
       rules: {
-        name: [{ required: true, message: this.$t('validateMessage.area.name'), trigger: 'change' }]
-      }
+        name: [{ required: true, message: this.$t('姓名不能为空'), trigger: 'change' }],
+        mobile: [{ required: true, message: this.$t('手机号不能为空'), trigger: 'change' }],
+        password: [{ required: true, message: this.$t('密码不能为空'), trigger: 'change' }],
+        email: [{ required: true, message: this.$t('邮箱不能为空'), trigger: 'change' }]
+      },
+      disabled_saveBtn: false
     }
   },
   methods: {
@@ -53,8 +71,12 @@ export default {
     resetTemp() {
       this.formData = {
         id: undefined,
-        name: undefined
+        name: undefined,
+        mobile: undefined,
+        password: undefined,
+        email: undefined
       }
+      this.disabled_saveBtn = false
     },
     // 新增（添加）
     handleCreate() {
@@ -67,16 +89,46 @@ export default {
     },
     // 点击确定按钮，新建数据
     createData() {
-      const tempData = {
-        id: undefined,
-        name: this.formData.name
+      if (this.disabled_saveBtn) {
+        return // 防重复提交
       }
-      this.$api.createStaff(tempData).then(response => {
-        console.log(response)
+      this.disabled_saveBtn = true
+
+      const _this = this
+      _this.$refs.dataForm.validate(valid => {
+        if (valid) {
+          const tempData = Object.assign({}, this.formData)
+          const result = this.$api.createStaff(tempData)
+          result
+            .then(
+              response => {
+                this.dialogVisible = false
+                // 防重按钮
+                setTimeout(() => {
+                  this.disabled_saveBtn = false
+                }, 150)
+                this.$emit('refreshList', '1')
+                this.$notify({
+                  title: this.$t('成功'),
+                  message: this.$t('创建成功'),
+                  type: 'success',
+                  duration: 2000
+                })
+              },
+              err => {
+                console.log(err)
+                _this.disabled_saveBtn = false
+              }
+            )
+            .catch(e => {
+              console.log(e)
+              _this.disabled_saveBtn = false
+            })
+        } else {
+          _this.disabled_saveBtn = false
+        }
       })
-      // if (this.formData.name) {
-      //   this.formData.name = this.formData.name.trim()
-      // }
+
       // var p = new Promise((resolves, rejects) =>
       //   this.$refs.dataForm.validate(valid => {
       //     if (valid) {

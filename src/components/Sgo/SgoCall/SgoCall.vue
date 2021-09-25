@@ -1000,8 +1000,8 @@ export default {
 /* 未读消息 */
 .unReadNews {
   position: fixed;
-  top: 120px;
-  right: 30px;
+  top: 50px;
+  right: 100px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
