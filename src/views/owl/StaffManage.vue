@@ -6,7 +6,7 @@
       <!-- 搜索按钮 -->
       <el-button type="primary" icon="el-icon-search" @click="handleSearch" />
       <!-- 添加按钮 -->
-      <el-button style="margin-right: 10px; float: right;" type="primary" icon="el-icon-plus" @click="showCreate">添加</el-button>
+      <el-button style="margin-right: 10px; float: right;" type="primary" icon="el-icon-plus" @click="createData">添加</el-button>
     </div>
     <!-- 列表 -->
     <el-table v-loading="listLoading" :key="tableKey" :data="list" :height="ListTableHeight" border fit highlight-current-row style="width: 99.98%;">
@@ -25,7 +25,9 @@
       <el-table-column :label="$t('操作')" min-width="120px" align="left">
         <template slot-scope="scope">
           <!-- 编辑 -->
-          <el-button type="primary" size="mini" plain @click="showUpdata(scope.row)">编辑</el-button>
+          <el-button type="primary" size="mini" plain @click="updataData(scope.row)">编辑</el-button>
+          <!-- 删除 -->
+          <el-button type="danger" size="mini" plain @click="deleteData(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -77,12 +79,34 @@ export default {
 
     },
     // 打开新增弹窗
-    showCreate() {
+    createData() {
       this.$refs.StaffManageDialog.handleCreate()
     },
     // 打开编辑弹窗
-    showUpdata() {
+    updataData() {
 
+    },
+    // 删除
+    deleteData(row) {
+      this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      })
+        .then(() => {
+          this.$api.deleteStaff(row.id).then(response => {
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            })
+            this.getList()
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     },
     // 刷新列表
     refreshList() {

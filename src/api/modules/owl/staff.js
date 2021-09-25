@@ -19,5 +19,13 @@ export default ({
       method: 'post',
       data: data
     })
+  },
+
+  // 删除员工
+  deleteStaff(id) {
+    return request({
+      url: '/user/' + id,
+      method: 'delete'
+    })
   }
 })
