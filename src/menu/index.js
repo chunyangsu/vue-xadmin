@@ -5,6 +5,7 @@ import {
 // 组件
 import user from './modules/user'
 import product from './modules/product'
+import owl from './modules/owl'
 import components from './modules/components'
 
 /**
@@ -29,6 +30,8 @@ export const menuHeader = supplementPath([{
   },
   // 产品中心
   product,
+  // 组织权限
+  owl,
   // 用户中心
   user,
   // 组件库
@@ -42,6 +45,8 @@ export const menuAside = supplementPath([{
   },
   // 产品中心
   product,
+  // 组织权限
+  owl,
   // 用户中心
   user,
   // 组件库

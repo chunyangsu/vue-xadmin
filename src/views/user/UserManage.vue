@@ -46,12 +46,13 @@ export default {
   methods: {
     // 获取列表
     getList() {
-      this.$api.fetchUserList().then(response => {
-        this.list = response.data
-        setTimeout(() => {
-          this.listLoading = false
-        }, 150)
-      })
+      this.listLoading = false
+      // this.$api.fetchUserList().then(response => {
+      //   this.list = response.data
+      //   setTimeout(() => {
+      //     this.listLoading = false
+      //   }, 150)
+      // })
       // Axios({
       //   method: 'get',
       //   url: 'http://localhost:3000/user/getList'

@@ -60,7 +60,7 @@ $prefix: d2;
 .dialog-footer {
   // width: 100%;
   padding: 6px 20px;
-  // margin-right: 20px;
+  margin-right: 0;
   // margin-bottom: 20px;
   background-color: rgba(226, 228, 231, 0.8);
 }
@@ -107,6 +107,18 @@ $prefix: d2;
 
   p {
     margin: 0px;
+  }
+
+  // 无序列表
+  ul {
+    padding-left: 15px;
+    margin: 0;
+  }
+
+  // 有序列表
+  ol {
+    padding-left: 15px;
+    margin: 0;
   }
 }
 
@@ -253,4 +265,42 @@ label {
 
 .form-item-box .form-item-right {
   float: left;
+}
+
+// 图片上传组件的样式
+.avatar {
+  width: 100px;
+  height: 100px;
+  line-height: 98px;
+  text-align: center;
+}
+
+// 图片上传组件的自适应
+.avatar img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+// 展示图片组件的样式
+.el-image {
+  width: 100px;
+  height: 100px;
+  line-height: 98px;
+  text-align: center;
+}
+
+// 展示图片组件的自适应
+.el-image img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.el-image-viewer__close {
+  color: #d2cfcf;
 }

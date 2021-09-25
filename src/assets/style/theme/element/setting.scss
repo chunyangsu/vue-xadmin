@@ -62,3 +62,149 @@ $theme-aside-menu-empty-background-color: #202D3D;
 $theme-aside-menu-empty-icon-color-hover: #46A0FC;
 $theme-aside-menu-empty-text-color-hover: #46A0FC;
 $theme-aside-menu-empty-background-color-hover: #202D3D;
+
+// 修改表头背景颜色
+//.el-table th {
+//  background-color: #304156;
+//  color: #bfcbd9;
+//}
+
+// 修改表格高度
+.el-table--mini td,
+.el-table--mini th {
+  padding: 2px 0;
+}
+
+.el-dialog {
+  margin-bottom: 0;
+}
+
+// 弹窗主体
+.el-dialog__body {
+  padding: 10px 20px 20px 20px;
+}
+
+// 弹窗底部
+.el-dialog__footer {
+  padding: 0;
+}
+
+// 按钮样式
+.el-button {
+  border-radius: 0;
+  padding: 8px 10px;
+}
+
+// 输入框
+.el-input__inner {
+  height: 36px;
+  border-radius: 0;
+}
+
+.el-form--label-left .el-form-item__label {
+  text-align: right;
+}
+
+.el-form-item__label {
+  line-height: 36px;
+}
+
+.el-form-item__content {
+  line-height: 36px;
+}
+
+.is-bottom .el-tabs__active-bar {
+  top: 0;
+}
+
+// 分配权限弹窗的菜单树
+.assignRightDialog .el-tree-node__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 34px;
+  cursor: pointer;
+}
+
+.assignRightDialog .el-tabs__content {
+  max-height: 560px;
+  overflow: auto;
+}
+
+// 数字输入
+.el-input-number--mini {
+  width: 130px;
+}
+
+.el-input-number .el-input__inner {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.mini-number .el-input-number--mini.is-without-controls {
+  width: 50px;
+}
+
+.mini-number .el-input-number.is-without-controls .el-input__inner {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.mini-number .el-input-number--mini.is-controls-right {
+  width: 80px;
+}
+
+.mini-number .el-input-number.is-controls-right .el-input__inner {
+  padding-left: 3px;
+  padding-right: 30px;
+}
+
+// tag标签
+.el-tag {
+  margin-right: 6px;
+}
+
+.d2-layout-header-aside-group .d2-layout-header-aside-content .d2-theme-container .d2-theme-container-main .d2-theme-container-main-body .container-component .d2-container-full .d2-container-full__body {
+  overflow: visible;
+}
+
+// 抽屉弹窗的右上角关闭按钮的样式
+.el-drawer__header {
+  margin-bottom: 0;
+  padding: 5px 3px 4px;
+}
+
+.ruleAddDialog .el-input-group__append,
+.el-input-group__prepend {
+  background-color: #F5F7FA;
+  color: #909399;
+  vertical-align: middle;
+  display: table-cell;
+  position: relative;
+  width: 1px;
+  white-space: nowrap;
+  padding: 0;
+  border: 0;
+}
+
+.ruleAddDialog .version .el-input__inner {
+  border: 0;
+}
+
+.ruleAddDialog .version .el-input-group {
+  border: 1px solid #DCDFE6;
+}
+
+// 来电通知弹窗的tab栏组件
+.callNotification .el-tabs__nav {
+  // max-height: 370px;
+  // overflow-y: auto;
+}
+
+.callNotification .el-tabs__nav-scroll {
+  overflow: hidden;
+  max-height: 370px;
+}
