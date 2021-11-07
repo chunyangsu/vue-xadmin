@@ -2,7 +2,7 @@
   <d2-container>
     <!-- 搜索栏 -->
     <div class="filter-container">
-      <el-input :placeholder="$t('姓名')" v-model="listQuery.name" style="width: 200px; margin-left: 5px; margin-right: 10px;" clearable @keyup.enter.native="handleSearch" />
+      <el-input :placeholder="$t('姓名')" v-model="searchQuery.name" style="width: 200px; margin-left: 5px; margin-right: 10px;" clearable @keyup.enter.native="handleSearch" />
       <!-- 搜索按钮 -->
       <el-button type="primary" icon="el-icon-search" @click="handleSearch" />
       <!-- 添加按钮 -->
@@ -33,7 +33,7 @@
     </el-table>
     <!-- 分页器 -->
     <!-- <div class="pagination-container">
-        <el-pagination :current-page="listQuery.page" :page-sizes="[20, 50, 100]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+        <el-pagination :current-page="searchQuery.page" :page-sizes="[20, 50, 100]" :page-size="searchQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div> -->
     <!-- 新增/编辑 弹窗 -->
     <staff-manage-dialog ref="StaffManageDialog" @refreshList="refreshList" />
@@ -54,7 +54,7 @@ export default {
       list: null,
       total: null,
       listLoading: true,
-      listQuery: {
+      searchQuery: {
         page: 1,
         limit: 20,
         name: undefined
@@ -68,7 +68,7 @@ export default {
     // 获取列表
     getList() {
       this.listLoading = true
-      this.$api.getStaffList().then(response => {
+      this.$api.getStaffList(this.searchQuery).then(response => {
         this.list = response.data
         setTimeout(() => {
           this.listLoading = false
@@ -76,15 +76,15 @@ export default {
       })
     },
     handleSearch() {
-
+      this.getList()
     },
     // 打开新增弹窗
     createData() {
-      this.$refs.StaffManageDialog.handleCreate()
+      this.$refs.StaffManageDialog.showCreateDialog()
     },
     // 打开编辑弹窗
-    updataData() {
-
+    updataData(row) {
+      this.$refs.StaffManageDialog.showUpdateDialog(row)
     },
     // 删除
     deleteData(row) {

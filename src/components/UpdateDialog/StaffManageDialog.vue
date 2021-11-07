@@ -2,7 +2,7 @@
   <div>
     <!-- 新增/编辑 弹窗 -->
     <el-dialog :title="textMap[dialogStatus]" :close-on-click-modal="false" :visible.sync="dialogVisible" show-close width="70%">
-      <el-form ref="dataForm" :rules="rules" :model="formData" label-position="right" label-width="110px">
+      <el-form v-loading="dialogLoading" ref="dataForm" :rules="rules" :model="formData" label-position="right" label-width="110px">
         <!-- 姓名 -->
         <el-form-item :label="$t('姓名')" prop="name">
           <el-input v-model.trim="formData.name" style="width: 290px;" />
@@ -25,7 +25,8 @@
         <!-- <sgo-fixed :key="new Date().getTime() || 0" placement="bottom" :height="80"> -->
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">{{ $t('取消') }}</el-button>
-          <el-button :disabled="disabled_saveBtn" type="primary" @click="createData">{{ $t('确定') }}</el-button>
+          <el-button v-if="dialogStatus === 'create'" :disabled="disabled_saveBtn" type="primary" @click="createData">{{ $t('确定') }}</el-button>
+          <el-button v-else :disabled="disabled_saveBtn" type="primary" @click="updateData">{{ $t('确定') }}</el-button>
           <!-- <NewButton v-if="dialogStatus === 'create'" :functions="createData" type="primary">确定</NewButton> -->
           <!-- <NewButton v-else :functions="updateData" type="primary">确定</NewButton> -->
         </div>
@@ -36,7 +37,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'StaffManageDialog', // 员工管理弹窗
   components: {
@@ -51,6 +51,7 @@ export default {
         password: undefined,
         email: undefined
       },
+      dialogLoading: false,
       dialogVisible: false,
       dialogStatus: '',
       textMap: {
@@ -78,13 +79,35 @@ export default {
       }
       this.disabled_saveBtn = false
     },
-    // 新增（添加）
-    handleCreate() {
+    // 打开新增弹窗
+    showCreateDialog() {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogVisible = true
       this.$nextTick(() => {
+        this.dialogLoading = false
         this.$refs.dataForm.clearValidate()
+      })
+    },
+    // 打开编辑弹窗
+    showUpdateDialog(row) {
+      this.resetTemp()
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
+      this.dialogLoading = true
+      // 获取详情数据
+      this.getDetail(row.id)
+      this.$nextTick(() => {
+        this.$refs.dataForm.clearValidate()
+      })
+    },
+    // 获取详情数据
+    getDetail(id) {
+      this.$api.getStaffDetail(id).then(response => {
+        this.formData = response
+        setTimeout(() => {
+          this.dialogLoading = false
+        }, 150)
       })
     },
     // 点击确定按钮，新建数据
@@ -110,7 +133,7 @@ export default {
                 this.$emit('refreshList', '1')
                 this.$notify({
                   title: this.$t('成功'),
-                  message: this.$t('创建成功'),
+                  message: this.$t('创建成功！'),
                   type: 'success',
                   duration: 2000
                 })
@@ -128,34 +151,6 @@ export default {
           _this.disabled_saveBtn = false
         }
       })
-
-      // var p = new Promise((resolves, rejects) =>
-      //   this.$refs.dataForm.validate(valid => {
-      //     if (valid) {
-      //       var a = this.$api.createArea({ area: Object.assign({}, this.formData) }, this.otherOptions)
-      //       Promise.all([a])
-      //         .then(function (values) {
-      //           resolves(values)
-      //         })
-      //         .catch(error => {
-      //           rejects(error)
-      //         })
-      //       a.then(response => {
-      //         this.dialogVisible = false
-      //         this.$emit('getData', this.formData)
-      //         this.$notify({
-      //           title: this.$t('noticeMessage.successTitle'),
-      //           message: this.$t('noticeMessage.successCreateMessage'),
-      //           type: 'success',
-      //           duration: 2000
-      //         })
-      //       })
-      //     } else {
-      //       rejects(true)
-      //     }
-      //   })
-      // )
-      // return p
     },
     // 编辑（修改）
     handleUpdate(row) {
@@ -169,6 +164,45 @@ export default {
     },
     // 点击确定按钮，编辑数据
     updateData() {
+      if (this.disabled_saveBtn) {
+        return // 防重复提交
+      }
+      this.disabled_saveBtn = true
+
+      const _this = this
+      _this.$refs.dataForm.validate(valid => {
+        if (valid) {
+          const tempData = Object.assign({}, this.formData)
+          const result = this.$api.updateStaff(tempData)
+          result
+            .then(
+              response => {
+                this.dialogVisible = false
+                // 防重按钮
+                setTimeout(() => {
+                  this.disabled_saveBtn = false
+                }, 150)
+                this.$emit('refreshList', '1')
+                this.$notify({
+                  title: this.$t('成功'),
+                  message: this.$t('更新成功！'),
+                  type: 'success',
+                  duration: 2000
+                })
+              },
+              err => {
+                console.log(err)
+                _this.disabled_saveBtn = false
+              }
+            )
+            .catch(e => {
+              console.log(e)
+              _this.disabled_saveBtn = false
+            })
+        } else {
+          _this.disabled_saveBtn = false
+        }
+      })
     }
   }
 }
