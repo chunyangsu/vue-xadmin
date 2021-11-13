@@ -21,6 +21,11 @@
           <span>{{ scope.row.mobile }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('邮箱')" min-width="150px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.email }}</span>
+        </template>
+      </el-table-column>
       <!-- 操作按钮 -->
       <el-table-column :label="$t('操作')" min-width="120px" align="left">
         <template slot-scope="scope">

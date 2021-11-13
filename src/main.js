@@ -18,12 +18,19 @@ import {
 } from '@/router/routes'
 // 滚动加载插件
 import infiniteScroll from 'vue-infinite-scroll'
+// 全局挂载的新增/编辑弹窗组件
+import UpdateDialog from './global/updateDialog'
+
 // 全局组件库
 import ComponentLibrary from './global/componentLibrary'
 // 计时器
 import SgoTimer from './components/Sgo/SgoTimer'
 // 核心插件
 Vue.use(d2Admin)
+
+// 全局 弹窗/子 组件
+Vue.use(UpdateDialog)
+
 Vue.use(infiniteScroll)
 // 全局组件库
 Vue.use(ComponentLibrary)
