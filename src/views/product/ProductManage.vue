@@ -105,7 +105,14 @@ export default {
   methods: {
     // 获取产品列表
     getList() {
-      this.listLoading = false
+      this.listLoading = true
+      this.list = []
+      this.$api.getProductList().then(response => {
+        this.list = response.data
+        setTimeout(() => {
+          this.listLoading = false
+        }, 50)
+      })
     },
     // 条件搜索
     handleSearch() {
