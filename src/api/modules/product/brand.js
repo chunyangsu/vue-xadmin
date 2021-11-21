@@ -5,19 +5,19 @@ export default ({
    * @description 请求项目中的文件
    * @param {String} url 文件地址
    */
-  // 获取产品列表
-  getProductList(query) {
+  // 获取品牌列表
+  getBrandList(query) {
     return request({
-      url: '/productCenter/product/list',
+      url: '/productCenter/brand/list',
       method: 'get',
       params: query
     })
   },
 
-  // 新增产品
-  createProduct(data) {
+  // 新增品牌
+  createBrand(data) {
     return request({
-      url: '/productCenter/product/',
+      url: '/productCenter/brand/',
       method: 'post',
       data: data
     })

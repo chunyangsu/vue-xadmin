@@ -72,7 +72,7 @@
       <el-pagination :current-page="searchQuery.page" :page-sizes="[20,50,100]" :page-size="searchQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </div>
     <!-- 新建编辑弹窗 -->
-    <product-dialog v-if="pro_update_show" ref="ProductDialog" :pro-title="proTitle" :cur-id="pro_id" @getData="handleSearch" @updateRefresh="updateRefresh" />
+    <product-dialog v-if="pro_update_show" ref="ProductDialog" :pro-title="proTitle" :cur-id="pro_id" @createBack="handleSearch" @updateRefresh="updateRefresh" />
   </d2-container>
 </template>
 
@@ -107,7 +107,7 @@ export default {
     getList() {
       this.listLoading = true
       this.list = []
-      this.$api.getProductList().then(response => {
+      this.$api.getProductList(this.searchQuery).then(response => {
         this.list = response.data
         setTimeout(() => {
           this.listLoading = false
@@ -116,42 +116,23 @@ export default {
     },
     // 条件搜索
     handleSearch() {
-      // this.listLoading = true
-      // this.searchQuery.page = 1
-      // if (this.pro_model_list_show) {
-      //   this.closeProList()
-      // }
-      // if (this.searchQuery.name) {
-      //   this.searchQuery.name = this.searchQuery.name.trim()
-      // }
-      // for (var key in this.searchQuery) {
-      //   if (this.searchQuery[key] === '' || this.searchQuery[key] === []) {
-      //     delete this.searchQuery[key]
-      //   }
-      // }
-      // this.getList()
+      this.searchQuery.page = 1
+      this.getList()
     },
     // 切换每页数量
     handleSizeChange(val) {
-      // this.searchQuery.limit = val
-      // this.searchQuery.page = 1
-      // this.getList()
-      // if (this.pro_model_list_show) {
-      //   this.closeProList()
-      // }
+      this.searchQuery.limit = val
+      this.searchQuery.page = 1
+      this.getList()
     },
     // 切换当前页
     handleCurrentChange(val) {
-      // this.searchQuery.page = val
-      // this.getList()
-      // if (this.pro_model_list_show) {
-      //   this.closeProList()
-      // }
+      this.searchQuery.page = val
+      this.getList()
     },
     // 打开产品新增弹窗
     showCreate() {
       this.proTitle = 'create'
-      // this.pro_update_code = 'createProProduct'
       if (this.pro_update_show) {
         // 该组件已创建过，只需展示
         this.$nextTick(() => {

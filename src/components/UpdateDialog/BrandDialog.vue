@@ -3,15 +3,9 @@
     <el-dialog :title="dialogTitleMap[dialogStatus]" :visible.sync="dialogVisible" :close-on-click-modal="false" show-close top="50px" width="90%" append-to-body>
       <div v-loading="dialogLoading">
         <el-form ref="dataForm" :rules="rules" :model="formData" label-position="right" label-width="110px" style="width:100%; margin:0; padding-right: 20px;">
-          <!-- 产品名称 -->
-          <el-form-item label="产品名称" prop="name">
+          <!-- 品牌名称 -->
+          <el-form-item label="品牌名称" prop="name">
             <el-input v-model.trim="formData.name" style="width: 290px;" />
-          </el-form-item>
-          <!--品牌-->
-          <el-form-item :label="$t('品牌')" prop="brand_id">
-            <el-select :remote-method="searchBrandList" :loading="loadingBrand" placeholder="请选择" v-model="formData.brand_id" filterable remote reserve-keyword style="width: 250px">
-              <el-option v-for="item in brandList" :key="item.id" :label="item.name" :value="item.id" />
-            </el-select>
           </el-form-item>
         </el-form>
         <div style="height: 50px;" />
@@ -21,6 +15,7 @@
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
           <el-button v-if="dialogStatus === 'create'" :disabled="disabled_saveBtn" type="primary" @click="createData">{{ $t('确定') }}</el-button>
+          <!-- <NewButton v-else :functions="createData" type="primary">{{ $t('button.confirm') }}</NewButton> -->
         </div>
       </div>
     </el-dialog>
@@ -39,7 +34,7 @@
 // import buttonStyle from '@/common/buttonStyle'
 
 export default {
-  name: 'ProductDialog', // 产品新建/编辑 弹窗
+  name: 'BrandDialog', // 品牌新建/编辑 弹窗
   components: {
   },
   props: {
@@ -51,7 +46,7 @@ export default {
       }
     },
     // 判断是新增还是编辑
-    proTitle: {
+    dialogTitle: {
       type: String,
       default: function () {
         return ''
@@ -63,9 +58,7 @@ export default {
       dialogLoading: false,
       formData: {
         id: undefined,
-        code: undefined,
-        name: undefined,
-        brand_id: undefined
+        name: undefined
       },
       dialogVisible: false,
       dialogStatus: '',
@@ -74,19 +67,20 @@ export default {
         update: '编辑'
       },
       rules: {
-        name: [{ required: true, message: '产品名称不能为空', trigger: 'change' }],
-        brand_id: [{ required: true, message: '品牌不能为空', trigger: 'change' }]
+        // brand_id: [{ required: true, message: this.$t('validateMessage.brand'), trigger: 'change' }],
+        // modelCode: [{ required: true, message: this.$t('validateMessage.model'), trigger: 'change' }],
+        // measure: [{ required: true, message: this.$t('validateMessage.unit'), trigger: 'change' }],
+        // series_models: [{ required: true, message: this.$t('validateMessage.series_models'), trigger: 'change' }]
       },
-      loadingBrand: false,
-      brandList: [] // 品牌列表
+      disabled_saveBtn: false
     }
   },
 
   created() {
-    if (this.proTitle === 'create') {
+    if (this.dialogTitle === 'create') {
       this.handleCreate()
     }
-    if (this.proTitle === 'update') {
+    if (this.dialogTitle === 'update') {
       this.handleUpdate()
     }
   },
@@ -96,9 +90,7 @@ export default {
       // 产品信息
       this.formData = {
         id: undefined,
-        code: undefined,
-        name: undefined,
-        brand_id: undefined
+        name: undefined
       }
       this.dialogLoading = true
     },
@@ -107,27 +99,10 @@ export default {
       this.initData()
       this.dialogStatus = 'create'
       this.dialogVisible = true
-      this.$api.getBrandList().then(response => {
-        this.brandList = response.data
-      })
       this.$nextTick(() => {
         this.dialogLoading = false
         this.$refs.dataForm.clearValidate()
       })
-    },
-    // 搜索品牌列表
-    searchBrandList(query) {
-      if (query !== '') {
-        this.loadingBrand = true
-        this.$api.getBrandList({ name: query }).then(response => {
-          this.brandList = response.data
-          setTimeout(() => {
-            this.loadingBrand = false
-          }, 50)
-        })
-      } else {
-        this.brandList = []
-      }
     },
     // 点击确定按钮，新建数据
     createData() {
@@ -139,7 +114,7 @@ export default {
       _this.$refs.dataForm.validate(valid => {
         if (valid) {
           const tempData = Object.assign({}, this.formData)
-          const result = this.$api.createProduct(tempData)
+          const result = this.$api.createBrand(tempData)
           result
             .then(
               response => {
@@ -173,22 +148,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-// 产品描述模块
-.proModule {
-  margin-bottom: 10px;
-}
-.proModule .module-title {
-}
-.proModule .module-title .name {
-  float: left;
-  font-size: 14px;
-  color: #eb630c;
-  font-weight: bold;
-}
-.proModule .module-title .btn {
-  float: left;
-  line-height: 35px;
-  margin-left: 10px;
-}
-</style>
