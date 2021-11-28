@@ -21,6 +21,7 @@
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
           <el-button v-if="dialogStatus === 'create'" :disabled="disabled_saveBtn" type="primary" @click="createData">{{ $t('确定') }}</el-button>
+          <el-button v-else :disabled="disabled_saveBtn" type="primary" @click="updateData">{{ $t('确定') }}</el-button>
         </div>
       </div>
     </el-dialog>
@@ -63,9 +64,10 @@ export default {
       dialogLoading: false,
       formData: {
         id: undefined,
-        code: undefined,
+        // code: undefined,
         name: undefined,
-        brand_id: undefined
+        brand_id: undefined // 品牌id
+        // category_id: undefined // 分类id
       },
       dialogVisible: false,
       dialogStatus: '',
@@ -92,19 +94,21 @@ export default {
   },
   methods: {
     // 初始化数据
-    initData() {
+    resetData() {
       // 产品信息
       this.formData = {
         id: undefined,
-        code: undefined,
+        // code: undefined,
         name: undefined,
-        brand_id: undefined
+        brand_id: undefined // 品牌id
+        // category_id: undefined // 分类id
       }
       this.dialogLoading = true
+      this.brandList = []
     },
     // 新增（添加）
     handleCreate() {
-      this.initData()
+      this.resetData()
       this.dialogStatus = 'create'
       this.dialogVisible = true
       this.$api.getBrandList().then(response => {
@@ -113,6 +117,29 @@ export default {
       this.$nextTick(() => {
         this.dialogLoading = false
         this.$refs.dataForm.clearValidate()
+      })
+    },
+    // 打开编辑弹窗
+    handleUpdate() {
+      this.resetData()
+      this.dialogStatus = 'update'
+      this.dialogVisible = true
+      this.$api.getBrandList().then(response => {
+        this.brandList = response.data
+      })
+      // 获取详情
+      this.getDetail()
+      this.$nextTick(() => {
+        this.$refs.dataForm.clearValidate()
+      })
+    },
+    // 获取详情
+    getDetail() {
+      this.$api.getProductDetail(this.curId).then(response => {
+        this.formData = response
+        setTimeout(() => {
+          this.dialogLoading = false
+        }, 150)
       })
     },
     // 搜索品牌列表
@@ -152,6 +179,47 @@ export default {
                 this.$notify({
                   title: this.$t('成功'),
                   message: this.$t('创建成功！'),
+                  type: 'success',
+                  duration: 2000
+                })
+              },
+              err => {
+                console.log(err)
+                _this.disabled_saveBtn = false
+              }
+            )
+            .catch(e => {
+              console.log(e)
+              _this.disabled_saveBtn = false
+            })
+        } else {
+          _this.disabled_saveBtn = false
+        }
+      })
+    },
+    // 点击确定按钮，编辑数据
+    updateData() {
+      if (this.disabled_saveBtn) {
+        return // 防重复提交
+      }
+      this.disabled_saveBtn = true
+      const _this = this
+      _this.$refs.dataForm.validate(valid => {
+        if (valid) {
+          const tempData = Object.assign({}, this.formData)
+          const result = this.$api.updateProduct(tempData)
+          result
+            .then(
+              response => {
+                this.dialogVisible = false
+                // 防重按钮
+                setTimeout(() => {
+                  this.disabled_saveBtn = false
+                }, 150)
+                this.$emit('updateBack', '1')
+                this.$notify({
+                  title: this.$t('成功'),
+                  message: this.$t('编辑成功！'),
                   type: 'success',
                   duration: 2000
                 })

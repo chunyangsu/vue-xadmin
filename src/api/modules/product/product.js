@@ -21,5 +21,30 @@ export default ({
       method: 'post',
       data: data
     })
+  },
+
+  // 获取产品详情
+  getProductDetail(id) {
+    return request({
+      url: '/productCenter/product/detail/' + id,
+      method: 'get'
+    })
+  },
+
+  // 编辑产品
+  updateProduct(data) {
+    return request({
+      url: '/productCenter/product/',
+      method: 'put',
+      data: data
+    })
+  },
+
+  // 删除产品
+  deleteProduct(id) {
+    return request({
+      url: '/productCenter/product/' + id,
+      method: 'delete'
+    })
   }
 })
