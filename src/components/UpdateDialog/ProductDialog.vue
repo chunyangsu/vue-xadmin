@@ -8,7 +8,7 @@
             <el-input v-model.trim="formData.name" style="width: 290px;" />
           </el-form-item>
           <!--品牌-->
-          <el-form-item :label="$t('品牌')" prop="brand_id">
+          <el-form-item label="品牌" prop="brand_id">
             <el-select :remote-method="searchBrandList" :loading="loadingBrand" placeholder="请选择" v-model="formData.brand_id" filterable remote reserve-keyword style="width: 250px">
               <el-option v-for="item in brandList" :key="item.id" :label="item.name" :value="item.id" />
             </el-select>
@@ -20,8 +20,8 @@
       <div slot="footer">
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button v-if="dialogStatus === 'create'" :disabled="disabled_saveBtn" type="primary" @click="createData">{{ $t('确定') }}</el-button>
-          <el-button v-else :disabled="disabled_saveBtn" type="primary" @click="updateData">{{ $t('确定') }}</el-button>
+          <el-button v-if="dialogStatus === 'create'" :disabled="disabled_saveBtn" type="primary" @click="createData">确定</el-button>
+          <el-button v-else :disabled="disabled_saveBtn" type="primary" @click="updateData">确定</el-button>
         </div>
       </div>
     </el-dialog>
@@ -79,6 +79,7 @@ export default {
         name: [{ required: true, message: '产品名称不能为空', trigger: 'change' }],
         brand_id: [{ required: true, message: '品牌不能为空', trigger: 'change' }]
       },
+      disabled_saveBtn: false,
       loadingBrand: false,
       brandList: [] // 品牌列表
     }
@@ -104,6 +105,7 @@ export default {
         // category_id: undefined // 分类id
       }
       this.dialogLoading = true
+      this.disabled_saveBtn = false
       this.brandList = []
     },
     // 新增（添加）
@@ -246,8 +248,8 @@ export default {
 .proModule {
   margin-bottom: 10px;
 }
-.proModule .module-title {
-}
+// .proModule .module-title {
+// }
 .proModule .module-title .name {
   float: left;
   font-size: 14px;
