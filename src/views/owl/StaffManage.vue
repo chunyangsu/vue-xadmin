@@ -41,7 +41,7 @@
         <el-pagination :current-page="searchQuery.page" :page-sizes="[20, 50, 100]" :page-size="searchQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div> -->
     <!-- 新增/编辑 弹窗 -->
-    <staff-manage-dialog ref="StaffManageDialog" @refreshList="refreshList" />
+    <staff-dialog ref="StaffDialog" @refreshList="refreshList" />
   </d2-container>
 </template>
 
@@ -50,7 +50,7 @@
 export default {
   name: 'StaffManage', // 员工管理
   components: {
-    StaffManageDialog: () => import('@/components/UpdateDialog/StaffManageDialog')
+    StaffDialog: () => import('@/components/UpdateDialog/StaffDialog')
   },
   data() {
     return {
@@ -85,11 +85,11 @@ export default {
     },
     // 打开新增弹窗
     createData() {
-      this.$refs.StaffManageDialog.showCreateDialog()
+      this.$refs.StaffDialog.showCreateDialog()
     },
     // 打开编辑弹窗
     updataData(row) {
-      this.$refs.StaffManageDialog.showUpdateDialog(row)
+      this.$refs.StaffDialog.showUpdateDialog(row)
     },
     // 删除
     deleteData(row) {

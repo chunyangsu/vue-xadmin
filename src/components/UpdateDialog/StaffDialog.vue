@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'StaffManageDialog', // 员工管理弹窗
+  name: 'StaffDialog', // 员工管理弹窗
   components: {
     // NewButton: () => import('@/components/NewButton')
   },

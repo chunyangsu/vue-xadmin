@@ -8,7 +8,7 @@ export default ({
   // 获取员工列表
   getStaffList(query) {
     return request({
-      url: '/user/list',
+      url: '/owl/user/list',
       method: 'get',
       params: query
     })
@@ -16,7 +16,7 @@ export default ({
   // 创建员工
   createStaff(data) {
     return request({
-      url: '/user/',
+      url: '/owl/user/',
       method: 'post',
       data: data
     })
@@ -24,7 +24,7 @@ export default ({
   // 编辑员工
   updateStaff(data) {
     return request({
-      url: '/user/',
+      url: '/owl/user/',
       method: 'put',
       data: data
     })
@@ -33,14 +33,14 @@ export default ({
   // 删除员工
   deleteStaff(id) {
     return request({
-      url: '/user/' + id,
+      url: '/owl/user/' + id,
       method: 'delete'
     })
   },
   // 获取员工详情
   getStaffDetail(id) {
     return request({
-      url: '/user/detail/' + id,
+      url: '/owl/user/detail/' + id,
       method: 'get'
     })
   }
